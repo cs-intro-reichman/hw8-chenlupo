@@ -30,7 +30,7 @@ public class Network {
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
 
-        for(int i = 0; i < users.length; i++){
+        for(int i = 0; i < userCount; i++){
 
             if(name.equals(users[i].getName())){
                return users[i];
@@ -46,7 +46,7 @@ public class Network {
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
 
-        if(userCount == users.length|| getUser(name) == null ){
+        if(userCount == users.length|| getUser(name) != null ){
             return false;
         }else{
             User x = new User(name);
@@ -61,23 +61,22 @@ public class Network {
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
       
-        if((getUser(name1) != null)&& getUser(name2) != null){
-
-            getUser(name2).addFollowee((name1));
-            return true;
-            
+        User user1 = getUser(name1);
+        User user2 = getUser(name2);
+        if (user1 == null || user2 == null) {
+            return false;
         }
-        return false;
+        return user1.addFollowee(name2);
     }
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
      *  the user that has the maximal mutual number of followees as the user with the given name. */
     public String recommendWhoToFollow(String name) {
        
-       int max =  getUser(name).countMutual(users[1]);
+       int max =  -1;
        int userNum = 0;
 
-        for(int i = 0; i < users.length; i ++){
+        for(int i = 0; i < userCount; i ++){
 
             if(name.equals(users[i].getName())){
                 continue;
@@ -120,7 +119,7 @@ public class Network {
        
         int count = 0;
 
-        for (int i = 0; i < users.length; i++){
+        for (int i = 0; i < userCount; i++){
            
             if(users[i].follows(name)){
                 count++;

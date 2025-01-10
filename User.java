@@ -86,11 +86,12 @@ public int getIndex(String name){
         if (follows(name) == false){
         return false;
     }else{
-        for(int i = index; i+1 < follows.length; i++){
+        for(int i = index; i < fCount-1; i++){
              
             follows[i] = follows[i+1];
             
             }
+            follows[fCount-1] = null;
             fCount--;
             return true;
        }
