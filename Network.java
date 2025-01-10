@@ -70,7 +70,9 @@ public class Network {
             return false;
         }
         
-        return user1.addFollowee(name2);
+        
+        user1.addFollowee(name2);
+        return user1.follows(name2);
     }
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
@@ -137,11 +139,11 @@ public class Network {
     // Returns a textual description of all the users in this network, and who they follow.
     public String toString() {
        
-        String ans ="Network:";
+        String line ="Network:";
         for(int i =0; i< userCount; i++){
-         ans= ans + System.lineSeparator() + users[i].toString();
+            line= line  + System.lineSeparator() + users[i].toString();
         }
-         return ans;
+         return line ;
     }
      }
 
